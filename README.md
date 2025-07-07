@@ -151,7 +151,7 @@ pip install -r requirements.txt
 
 ## 👤 Contact
 
-Ludovic FOLLACO
-ludovic.follaco@gmail.com
-https://www.follaco.fr
+Ludovic FOLLACO  
+ludovic.follaco@gmail.com  
+https://www.follaco.fr  
 https://www.linkedin.com/in/ludovic-follaco-a74b5394/
