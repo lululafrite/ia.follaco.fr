@@ -24,14 +24,11 @@ def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
 
 # 🔮 Prédiction
 def predict_price(description: str, fiabilite: float) -> float:
-    # Pondération comme dans preprocessing
-    # coeffs = {"Beginner": 0.8, "Intermediate": 1.0, "Expert": 1.2}
-    fiabilite_pondérée = fiabilite * 0.8 # coeffs.get(niveau, 1.0)
+    fiabilite_pondérée = fiabilite * 0.8
     X = preprocess_input(description, fiabilite_pondérée)
-    return round(reg_model.predict(X)[0] * 10, 2)
+    return round(reg_model.predict(X)[0] * 2.5, 2)
 
 def predict_tranche(description: str, fiabilite: float) -> str:
-    # coeffs = {"Beginner": 0.8, "Intermediate": 1.0, "Expert": 1.2}
-    fiabilite_pondérée = fiabilite * 0.8 # coeffs.get(niveau, 1.0)
+    fiabilite_pondérée = fiabilite * 0.82
     X = preprocess_input(description, fiabilite_pondérée)
     return str(clf_model.predict(X)[0])
