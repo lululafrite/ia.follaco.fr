@@ -63,20 +63,27 @@ Il s’appuie sur un pipeline **modulaire et reproductible**, combinant des tech
 
 ## 🚀 Fonctionnement
 
-1. **Prétraitement** (`01_pre-processing.ipynb`)  
-   Nettoyage du jeu de données brut : suppression des doublons, traitement des prix aberrants, standardisation des formats.
+1. **Prétraitement des données** (`01_pre-processing.ipynb`)  
+   Nettoyage du jeu de données brut : suppression des doublons, traitement des prix aberrants, uniformisation des formats, et export d’un fichier transformé prêt à l’usage.
 
-2. **Modélisation - Régression** (`03_model_regression.ipynb`)  
-   Construction des features, entraînement et évaluation des modèles de régression pour prédire le prix exact.
+2. **Modélisation - Régression** (`02_model_regression.ipynb`)  
+   Construction des features à partir des variables classiques, entraînement et évaluation de modèles de régression (RandomForest, XGBoost, etc.) pour prédire le **prix exact**.
 
-3. **Modélisation - Classification** (`04_model_classification.ipynb`)  
-   Création de la variable `Tranche` et entraînement de modèles de classification pour estimer la gamme de prix.
+3. **Modélisation - Classification** (`03_model_classification.ipynb`)  
+   Création de la variable cible `Tranche` (prix bas / moyen / élevé), puis entraînement de modèles de classification pour estimer **la gamme de prix**.
 
-4. **Prédiction scriptée** (`predict.py`)  
-   Rechargement des modèles, génération d’une prédiction à partir de nouvelles entrées, préparation pour intégration.
+4. **Modélisation - Deep Learning** (`04_model_deep_learning.ipynb`)  
+   Entraînement d’un modèle **deep learning** utilisant des **embeddings textuels** (via `SentenceTransformer`) combinés à des variables numériques, afin de prédire le prix. Ce modèle est exporté au format `.h5`.
 
-5. **Interface utilisateur** (`07_app.ipynb`)  
-   Application Gradio interactive pour tester dynamiquement les prédictions (prix + tranche), avec enregistrement possible dans un fichier `log.csv`.
+5. **Prédiction scriptée** (`05_predict.py`)  
+   Regroupe les fonctions de prédiction prêtes à l’emploi : chargement des modèles, transformation des nouvelles entrées, et génération des prédictions (prix et tranche).
+
+6. **API REST avec FastAPI** (`06_api_fastapi.py`)  
+   Implémente une API REST permettant de soumettre une requête (description, niveau, fiabilité) et de recevoir une prédiction de prix via une architecture déployable localement avec `uvicorn`.
+
+7. **Interface utilisateur interactive** (`07_app.ipynb`)  
+   Application **Gradio** pour tester dynamiquement les différents modèles (ML, Deep Learning, API REST). L’utilisateur peut saisir une description, choisir un niveau de fiabilité, visualiser les résultats, et **enregistrer** les prédictions dans un fichier `log.csv`.
+
 
 ---
 
@@ -115,15 +122,15 @@ Il s’appuie sur un pipeline **modulaire et reproductible**, combinant des tech
 
 Ce projet couvre des **compétences issues des blocs 3 et 5** de la certification IA :
 
-| Bloc   | Compétence | Description                                                                                      | Notebooks concernés                                         |
-|--------|------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------|
-| Bloc_3 | C1         | Sélection du meilleur algorithme ML selon les performances (MAE, RMSE, Accuracy…)               | `03_model_regression.ipynb`, `04_model_classification.ipynb` |
-| Bloc_3 | C2         | Prétraitement des données (scaling, encodage, embeddings) selon le modèle                        | `01_pre-processing.ipynb`, `03_model_regression.ipynb`, `04_model_classification.ipynb`, `06_predict.ipynb` |
-| Bloc_3 | C3         | Entraînement et validation de modèles ML supervisés sur métriques définies                      | `03_model_regression.ipynb`, `04_model_classification.ipynb` |
-| Bloc_5 | C1         | Transformation de textes en vecteurs numériques (embeddings BERT via `sentence-transformers`)   | `01_pre-processing.ipynb`, `03_model_regression.ipynb`, `04_model_classification.ipynb`, `06_predict.ipynb` |
-| Bloc_5 | C2         | Comparaison de modèles hybrides (deep + ML) adaptés aux problématiques métier                    | `03_model_regression.ipynb`, `04_model_classification.ipynb` |
-| Bloc_5 | C3         | Entraînement de modèles ML avec des features issues du deep (embeddings de modèles pré-entraînés) | `03_model_regression.ipynb`, `04_model_classification.ipynb` |
-| Bloc_5 | C4         | Déploiement d’une interface utilisateur avec Gradio et intégration d’un pipeline de prédiction   | `06_predict.ipynb`, `07_app.ipynb` |
+| Bloc   | Compétence | Description                                                                                          | Notebooks concernés                                                                 |
+|--------|------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| Bloc_3 | C1         | Sélection du meilleur algorithme ML selon les performances (MAE, RMSE, Accuracy…)                   | `02_model_regression.ipynb`, `03_model_classification.ipynb`                         |
+| Bloc_3 | C2         | Prétraitement des données (scaling, encodage, embeddings) adapté à chaque type de modèle            | `01_pre-processing.ipynb`, `02_model_regression.ipynb`, `03_model_classification.ipynb`, `04_model_deep_learning.ipynb`, `05_predict.ipynb` |
+| Bloc_3 | C3         | Entraînement et validation de modèles ML supervisés sur métriques définies                          | `02_model_regression.ipynb`, `03_model_classification.ipynb`                         |
+| Bloc_5 | C1         | Transformation de textes en vecteurs numériques (embeddings BERT via `sentence-transformers`)       | `01_pre-processing.ipynb`, `02_model_regression.ipynb`, `04_model_deep_learning.ipynb`, `05_predict.ipynb` |
+| Bloc_5 | C2         | Comparaison de modèles hybrides (ML vs Deep Learning) adaptés aux contraintes du cas métier         | `02_model_regression.ipynb`, `04_model_deep_learning.ipynb`, `05_predict.ipynb`      |
+| Bloc_5 | C3         | Entraînement de modèles Deep Learning exploitant les embeddings textuels                            | `04_model_deep_learning.ipynb`                                                      |
+| Bloc_5 | C4         | Déploiement du pipeline avec une interface Gradio et exposition d’un modèle via une API FastAPI     | `06_app.ipynb`, `06_api_fastapi.ipynb`                                              |
 
 ---
 
