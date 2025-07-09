@@ -169,7 +169,7 @@ Cette structure permet de séparer clairement l’exploration (notebooks), le co
 
 ## 6. Source des données
 
-Les données utilisées pour entraîner les modèles viennent d’un dataset disponible publiquement sur Kaggle.  
+Les données utilisées pour entraîner les modèles viennent d’un csv disponible publiquement sur Kaggle.  
 Il s’agit d’une extraction de prestations proposées sur la plateforme Fiverr : description, prix, niveau du vendeur, nombre d’avis, etc.  
 Le fichier original a été nettoyé et retravaillé localement pour ne garder que les variables utiles au projet.
 
