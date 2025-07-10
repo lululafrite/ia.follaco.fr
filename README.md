@@ -105,7 +105,7 @@ Les notebooks servent à documenter chaque étape du projet, tandis que les fich
 
 ### 5.1. Préparation et modélisation — Notebooks
 
-Ces fichiers servent à explorer les données, tester plusieurs approches, visualiser les résultats et conserver une trace claire de chaque étape. Ils sont regroupés dans le dossier `notebooks/`.
+Ces fichiers servent à explorer les données, tester plusieurs approches, visualiser les résultats, conserver une trace claire de chaque étape et de documents pédagogiques. Ils sont regroupés dans le dossier `notebooks/`.
 
 - `01_pre-processing.ipynb` : nettoyage des données brutes  
 - `02_model_regression.ipynb` : entraînement et comparaison de plusieurs modèles de régression  
@@ -125,7 +125,6 @@ Tous les scripts utiles au fonctionnement réel du projet sont regroupés dans l
 
 - **Prétraitement et préparation des données**  
   - `preprocessing.py` : fonctions de nettoyage des données brutes  
-  - `features.py` : encodage, embeddings, standardisation
 
 - **Entraînement des modèles**  
   - `training_regression.py` : régression supervisée  
@@ -252,9 +251,9 @@ Chaque compétence est couverte à travers des notebooks d’analyse et des scri
 | Bloc   | Compétence | Description                                                                                          | Fichiers associés                                                                                     |
 |--------|------------|------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | Bloc_3 | C1         | Sélection du meilleur algorithme ML selon les performances (MAE, RMSE, Accuracy…)                   | `02_model_regression.ipynb`, `03_model_classification.ipynb`, `training_regression.py`, `training_classification.py` |
-| Bloc_3 | C2         | Prétraitement des données (scaling, encodage, embeddings) adapté à chaque type de modèle            | `01_pre-processing.ipynb`, `features.py`, `preprocessing.py`                                          |
+| Bloc_3 | C2         | Prétraitement des données (scaling, encodage, embeddings) adapté à chaque type de modèle            | `01_pre-processing.ipynb`, `preprocessing.py`                                          |
 | Bloc_3 | C3         | Entraînement et validation de modèles ML supervisés sur métriques définies                          | `02_model_regression.ipynb`, `03_model_classification.ipynb`, `training_regression.py`, `training_classification.py` |
-| Bloc_5 | C1         | Transformation de textes en vecteurs numériques (embeddings BERT via sentence-transformers)         | `features.py`, `04_model_deep_learning.ipynb`, `training_deep.py`                                     |
+| Bloc_5 | C1         | Transformation de textes en vecteurs numériques (embeddings BERT via sentence-transformers)         | `04_model_deep_learning.ipynb`, `training_deep.py`                                     |
 | Bloc_5 | C2         | Comparaison de modèles hybrides (ML vs Deep Learning) adaptés aux contraintes du cas métier         | `04_model_deep_learning.ipynb`, `02_model_regression.ipynb`, `08_predict_test.ipynb`                  |
 | Bloc_5 | C3         | Entraînement de modèles Deep Learning exploitant les embeddings textuels                            | `04_model_deep_learning.ipynb`, `training_deep.py`                                                    |
 | Bloc_5 | C4         | Déploiement du pipeline avec une interface Gradio et exposition d’un modèle via une API FastAPI     | `app_gradio.py`, `api_fastapi.py`, `06_app_gradio.ipynb`, `06_api_fastapi.ipynb`, `main.py`                  |
