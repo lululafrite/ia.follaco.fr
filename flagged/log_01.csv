@@ -1,0 +1,16 @@
+Description,Fiabilité (%),Prix prédit (€),Tranche prédite,Modèle utilisé
+Je fais le ménage,80,3.45,Haute,ML - Local
+Je fais le ménage,80,2.52,Non évaluée,DL - Local
+Je fais le ménage,80,3.07,Non évaluée,API - FastAPI
+Je fais le ménage,85,3.55,Moyenne,ML - Local
+Je fais le ménage,85,2.54,Non évaluée,DL - Local
+Je fais le ménage,85,3.08,Non évaluée,API - FastAPI
+Je fais le ménage,90,3.72,Moyenne,ML - Local
+Je fais le ménage,90,2.55,Non évaluée,DL - Local
+Je fais le ménage,90,3.1,Non évaluée,API - FastAPI
+Je fais le ménage,96,4.04,Haute,ML - Local
+Je fais le ménage,96,2.57,Non évaluée,DL - Local
+Je fais le ménage,96,3.12,Non évaluée,API - FastAPI
+Je fais le ménage,99,4.33,Basse,ML - Local
+Je fais le ménage,99,2.58,Non évaluée,DL - Local
+Je fais le ménage,99,3.12,Non évaluée,API - FastAPI

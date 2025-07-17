@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score
 from sentence_transformers import SentenceTransformer
 
 # Chargement des données transformées
-df = pd.read_csv("data/fiverr_cleaned_transformed.csv")
+df = pd.read_csv("data/fiverr_cleaned_ml.csv")
 
 # Génération des embeddings à partir de la description
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -45,13 +45,8 @@ print(f"Accuracy du modèle DecisionTree : {round(acc, 4)}")
 
 # Sauvegarde des modèles
 os.makedirs("models/classification", exist_ok=True)
-
 joblib.dump(model, "models/classification/decision_tree.pkl")
-print("Modèle sauvegardé : models/classification/decision_tree.pkl")
-
-# Sauvegarde du scaler et des colonnes utilisées
 joblib.dump(scaler, "models/classification/scaler.pkl")
-print("Modèle sauvegardé : models/classification/scaler.pkl")
-
 joblib.dump(X.columns.tolist(), "models/columns_used.pkl")
-print("Modèle sauvegardé : models/columns_used.pkl")
+
+print("Modèle et artefacts sauvegardés dans models/classification/")

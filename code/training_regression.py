@@ -12,7 +12,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sentence_transformers import SentenceTransformer
 
 # Chargement des données transformées
-df = pd.read_csv("data/fiverr_cleaned_transformed.csv")
+df = pd.read_csv("data/fiverr_cleaned_test.csv")
 
 # Génération des embeddings de description
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -30,6 +30,9 @@ y_log = df["Prix_log"]
 y_real = df["Prix"]
 
 # Séparation en train/test
+#X_train, X_test, y_train, y_test = train_test_split(
+#    X, y_log, test_size=0.2, random_state=42
+#)
 X_train, X_test, y_train, y_test, y_real_train, y_real_test = train_test_split(
     X, y_log, y_real, test_size=0.2, random_state=42
 )
@@ -41,6 +44,10 @@ model.fit(X_train, y_train)
 # Prédiction et calcul du RMSE sur les vrais prix
 y_pred = np.expm1(model.predict(X_test))
 rmse = np.sqrt(mean_squared_error(y_real_test, y_pred))
+#y_pred = np.expm1(model.predict(X_test))
+#y_real_test = np.expm1(y_test)
+#rmse = np.sqrt(mean_squared_error(y_real_test, y_pred))
+
 
 # Sauvegarde du modèle
 os.makedirs("models/regression", exist_ok=True)
