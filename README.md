@@ -135,7 +135,8 @@ Tous les scripts utiles au fonctionnement réel du projet sont regroupés dans l
   - `predict.py` : contient toutes les fonctions utilisées pour prédire un prix ou une tranche à partir d'une nouvelle entrée
 
 - **Déploiement**  
-  - `api_fastapi.py` : API REST basée sur FastAPI  
+  - `api_fastapi_ml.py` : API REST pour le modèle ML basée sur FastAPI  
+  - `api_fastapi_dl.py` : API REST pour le modèle DL basée sur FastAPI 
   - `app_gradio.py` : interface utilisateur Gradio pour tester les modèles  
   - `main.py` : point d’entrée central si on veut enchaîner plusieurs étapes
 
@@ -306,9 +307,9 @@ python main.py
 - Chaque notebook est autonome, avec une structure claire et des explications guidées.
 - Le projet est conçu pour favoriser la modularité et la réutilisabilité en production.
 - L’interface utilisateur permet de tester directement toute la chaîne de prédiction.
-- Les notebooks `04_predict.ipynb` et `06_api_fastapi.ipynb` ne sont pas utilisés par l’application. Ils ont un rôle purement pédagogique.
+- Les notebooks `05_predict.ipynb` et `06_api_fastapi.ipynb` ne sont pas utilisés par l’application. Ils ont un rôle purement pédagogique.
 - Le notebook `08_predict_test.ipynb` n’est pas utilisé par l’application. Il a un rôle analytique et pédagogique.
-- Le fichier `predict.py` est importé dans le notebook `07_app_gradio.ipynb`, car il contient les fonctions de prédiction.
+- Le fichier `ml_predict.py` et `dl_predict.py` sont importés dans le notebook `07_app_gradio.ipynb`, car il contient les fonctions de prédiction.
 
 ---
 

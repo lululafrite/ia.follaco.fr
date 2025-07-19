@@ -1,16 +1,42 @@
 Description,Fiabilité (%),Prix prédit (€),Tranche prédite,Modèle utilisé
-Je fais le ménage,80,1.58,Basse,ML - Local
-Je fais le ménage,80,1.14,Non évaluée,DL - Local
-Je fais le ménage,80,1.2,Non évaluée,API - FastAPI
-Je fais le ménage,85,1.61,Haute,ML - Local
-Je fais le ménage,85,1.14,Non évaluée,DL - Local
-Je fais le ménage,85,1.19,Non évaluée,API - FastAPI
-Je fais le ménage,90,1.61,Haute,ML - Local
-Je fais le ménage,90,1.13,Non évaluée,DL - Local
-Je fais le ménage,90,1.18,Non évaluée,API - FastAPI
-Je fais le ménage,96,1.61,Haute,ML - Local
-Je fais le ménage,96,1.11,Non évaluée,DL - Local
-Je fais le ménage,96,1.18,Non évaluée,API - FastAPI
-Je fais le ménage,99,1.7,Basse,ML - Local
-Je fais le ménage,99,1.11,Non évaluée,DL - Local
-Je fais le ménage,99,1.18,Non évaluée,API - FastAPI
+Développement de site web,80,15.94,Basse,ML - Local
+Développement de site web,85,16.34,Moyenne,ML - Local
+Développement de site web,90,17.03,Moyenne,ML - Local
+Développement de site web,96,18.29,Moyenne,ML - Local
+Développement de site web,99,19.46,Haute,ML - Local
+Développement de site web,80,15.94,Basse,ML - FastAPI
+Développement de site web,85,16.34,Moyenne,ML - FastAPI
+Développement de site web,90,17.03,Moyenne,ML - FastAPI
+Développement de site web,96,18.29,Moyenne,ML - FastAPI
+Développement de site web,99,19.46,Haute,ML - FastAPI
+Développement de site web,80,19.57,Non évaluée,DL - Local
+Développement de site web,85,19.62,Non évaluée,DL - Local
+Développement de site web,90,19.66,Non évaluée,DL - Local
+Développement de site web,96,19.72,Non évaluée,DL - Local
+Développement de site web,99,19.74,Non évaluée,DL - Local
+Développement de site web,80,19.86,Non évaluée,DL - Local
+Développement de site web,85,19.91,Non évaluée,DL - Local
+Développement de site web,90,19.96,Non évaluée,DL - Local
+Développement de site web,96,20.02,Non évaluée,DL - Local
+Développement de site web,99,20.05,Non évaluée,DL - Local
+Développement de site web,80,20.9,Non évaluée,DL - Local
+Développement de site web,85,20.96,Non évaluée,DL - Local
+Développement de site web,90,21.02,Non évaluée,DL - Local
+Développement de site web,96,21.1,Non évaluée,DL - Local
+Développement de site web,99,21.14,Non évaluée,DL - Local
+Développement de site web,99,19.74,Non évaluée,DL - FastAPI
+Développement de site web,80,19.57,Non évaluée,DL - FastAPI
+Développement de site web,85,19.62,Non évaluée,DL - FastAPI
+Développement de site web,90,19.66,Non évaluée,DL - FastAPI
+Développement de site web,96,19.72,Non évaluée,DL - FastAPI
+Développement de site web,99,19.74,Non évaluée,DL - FastAPI
+Développement de site web,80,19.86,Non évaluée,DL - FastAPI
+Développement de site web,85,19.91,Non évaluée,DL - FastAPI
+Développement de site web,90,19.96,Non évaluée,DL - FastAPI
+Développement de site web,96,20.02,Non évaluée,DL - FastAPI
+Développement de site web,99,20.05,Non évaluée,DL - FastAPI
+Développement de site web,80,20.9,Non évaluée,DL - FastAPI
+Développement de site web,85,20.96,Non évaluée,DL - FastAPI
+Développement de site web,90,21.02,Non évaluée,DL - FastAPI
+Développement de site web,96,21.1,Non évaluée,DL - FastAPI
+Développement de site web,99,21.14,Non évaluée,DL - FastAPI

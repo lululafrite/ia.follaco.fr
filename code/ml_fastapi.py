@@ -8,12 +8,14 @@ import pandas as pd
 import numpy as np
 import os
 
-# === Répertoires et chemins ===
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REG_MODEL_PATH = os.path.join(BASE_DIR, "models/regression/gradient_boosting.pkl")
-CLF_MODEL_PATH = os.path.join(BASE_DIR, "models/classification/decision_tree.pkl")
-SCALER_PATH = os.path.join(BASE_DIR, "models/regression/scaler.pkl")
-COLUMNS_PATH = os.path.join(BASE_DIR, "models/columns_used.pkl")
+# Définition du répertoire de base du projet
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Définition des chemins vers les fichiers nécessaires
+REG_MODEL_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "regression", "gradient_boosting.pkl"))
+SCALER_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "scaler.pkl"))
+CLF_MODEL_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "decision_tree.pkl"))
+COLUMNS_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "columns_used.pkl"))
 
 # === Chargement des modèles ===
 reg_model = joblib.load(REG_MODEL_PATH)
@@ -32,31 +34,30 @@ class InputData(BaseModel):
 
 # === Prétraitement commun ===
 def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
-    # Embedding
     emb = embedding_model.encode([description])
     emb_dict = {f"emb_{i}": emb[0][i] for i in range(384)}
-    
-    # Fiabilité pondérée
-    fiabilite_pondérée = fiabilite * 0.8
-    row = {**emb_dict, "Fiabilite": fiabilite_pondérée}
+
+    # Ne pas pondérer ici
+    row = {**emb_dict, "Fiabilite": fiabilite}
     df = pd.DataFrame([row])
-    
-    # Aligner les colonnes et scaler la fiabilité
+
     df = df.reindex(columns=columns, fill_value=0)
     df[["Fiabilite"]] = scaler.transform(df[["Fiabilite"]])
-    
     return df
 
 # === Route : prédiction de prix ===
 @app.post("/predict_price")
 def predict_price_api(data: InputData):
-    X = preprocess_input(data.description, data.fiabilite)
+    # On applique la pondération ici, comme dans ml_predict.py
+    fiabilite_pondérée = data.fiabilite * 0.8
+    X = preprocess_input(data.description, fiabilite_pondérée)
     y_pred = reg_model.predict(X)[0]
-    return {"prix": round(float(y_pred), 2)}
+    return {"prix": round(float(y_pred) * 10, 2)}
 
 # === Route : prédiction de tranche ===
 @app.post("/predict_tranche")
 def predict_tranche_api(data: InputData):
-    X = preprocess_input(data.description, data.fiabilite)
+    fiabilite_pondérée = data.fiabilite * 0.8
+    X = preprocess_input(data.description, fiabilite_pondérée)
     y_pred = clf_model.predict(X)[0]
     return {"tranche": str(y_pred)}

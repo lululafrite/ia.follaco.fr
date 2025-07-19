@@ -11,8 +11,12 @@ from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sentence_transformers import SentenceTransformer
 
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+FILE_DATA = os.path.join(BASE_DIR, "data", "fiverr_cleaned_dl.csv")
+
 # Chargement des données transformées
-df = pd.read_csv("data/fiverr_cleaned_test.csv")
+df = pd.read_csv(FILE_DATA)
 
 # Génération des embeddings de description
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")

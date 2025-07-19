@@ -7,18 +7,18 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 
 # Définition du répertoire de base du projet
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Définition des chemins vers les fichiers nécessaires
-REG_MODEL_PATH = os.path.join(BASE_DIR, "models/regression/gradient_boosting.pkl")
-CLF_MODEL_PATH = os.path.join(BASE_DIR, "models/classification/decision_tree.pkl")
-SCALER_PATH = os.path.join(BASE_DIR, "models/regression/scaler.pkl")
-COLUMNS_PATH = os.path.join(BASE_DIR, "models/columns_used.pkl")
+REG_MODEL_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "regression", "gradient_boosting.pkl"))
+SCALER_CLASS_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "scaler.pkl"))
+CLF_MODEL_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "decision_tree.pkl"))
+COLUMNS_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "models", "classification", "columns_used.pkl"))
 
 # Chargement des objets
 reg_model = joblib.load(REG_MODEL_PATH)
 clf_model = joblib.load(CLF_MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
+scaler_class = joblib.load(SCALER_CLASS_PATH)
 columns = joblib.load(COLUMNS_PATH)
 
 # Chargement du modèle d'embedding (même que celui utilisé à l'entraînement)
@@ -38,7 +38,7 @@ def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
     df = df.reindex(columns=columns, fill_value=0)
 
     # Standardisation de la fiabilité
-    df[["Fiabilite"]] = scaler.transform(df[["Fiabilite"]])
+    df[["Fiabilite"]] = scaler_class.transform(df[["Fiabilite"]])
 
     return df
 
@@ -48,7 +48,7 @@ def predict_price(description: str, fiabilite: float) -> float:
     fiabilite_pondérée = fiabilite * 0.8
     X = preprocess_input(description, fiabilite_pondérée)
     # Multiplication par 2.5 pour retrouver l’échelle initiale des prix
-    return round(reg_model.predict(X)[0], 2)
+    return round(reg_model.predict(X)[0] * 10, 2)
 
 # Prédiction de tranche de prix (classification)
 def predict_tranche(description: str, fiabilite: float) -> str:

@@ -57,7 +57,7 @@ async def predict_price(input_data: InputData):
         X = preprocess_input(input_data)
         y_pred = await run_in_threadpool(lambda: deep_model.predict(X)[0][0])
         return {
-            "prix": round(float(y_pred), 2),
+            "prix": round(float(y_pred) *10, 2),
             #"tranche": None  # tu peux remplacer par une vraie tranche si tu veux
         }
     except Exception as e:

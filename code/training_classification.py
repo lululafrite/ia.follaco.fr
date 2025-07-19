@@ -11,8 +11,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sentence_transformers import SentenceTransformer
 
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+FILE_DATA = os.path.join(BASE_DIR, "data", "fiverr_cleaned_ml.csv")
+
 # Chargement des données transformées
-df = pd.read_csv("data/fiverr_cleaned_ml.csv")
+df = pd.read_csv(FILE_DATA)
 
 # Génération des embeddings à partir de la description
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -47,6 +50,6 @@ print(f"Accuracy du modèle DecisionTree : {round(acc, 4)}")
 os.makedirs("models/classification", exist_ok=True)
 joblib.dump(model, "models/classification/decision_tree.pkl")
 joblib.dump(scaler, "models/classification/scaler.pkl")
-joblib.dump(X.columns.tolist(), "models/columns_used.pkl")
+joblib.dump(X.columns.tolist(), "models/classification/columns_used.pkl")
 
 print("Modèle et artefacts sauvegardés dans models/classification/")

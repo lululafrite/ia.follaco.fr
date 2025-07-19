@@ -16,13 +16,13 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 nltk.download('stopwords')
 french_stopwords = stopwords.words('french')
 
-# === Authentification et téléchargement du dataset Kaggle ===
+# === Authentification et téléchargement du fichier csv Kaggle ===
 api = KaggleApi()
 api.authenticate()
-dataset = "muhammadadiltalay/fiverr-data-gigs"
+csvFile = "muhammadadiltalay/fiverr-data-gigs"
 DATA_FOLDER = "data"
 os.makedirs(DATA_FOLDER, exist_ok=True)
-api.dataset_download_files(dataset, path=DATA_FOLDER, unzip=True)
+api.dataset_download_files(csvFile, path=DATA_FOLDER, unzip=True)
 
 # === Suppression du fichier nettoyé existant s’il existe déjà ===
 file_path = os.path.join(DATA_FOLDER, "fiverr-data-gigs-cleaned.csv")
@@ -144,22 +144,17 @@ iqr = q3 - q1
 lower_bound = q1 - 1.5 * iqr
 upper_bound = q3 + 1.5 * iqr
 df = df[(df["Prix"] >= lower_bound) & (df["Prix"] <= upper_bound)]
+df["Fiabilite"] = df["Fiabilite"] * df["Niveau"].astype(float) # Ajustement de la fiabilité par niveau
 
 # === Création du fichier pour le modèle ML ===
 df_ml = df[["Description", "Prix", "Fiabilite"]].copy()
 df_ml.to_csv("data/fiverr_cleaned_ml.csv", index=False, encoding="utf-8")
-df_ml.to_parquet("data/fiverr_cleaned_ml.parquet", index=False, engine="pyarrow", compression="snappy")
+#df_ml.to_parquet("data/fiverr_cleaned_ml.parquet", index=False, engine="pyarrow", compression="snappy")
 
 # === Création du fichier pour le modèle DL ===
-df_dl = df[["Description", "Niveau", "Fiabilite"]].copy()
-df_dl["Prix_log"] = np.log1p(df["Prix"])
+#df_dl = df[["Description", "Niveau", "Fiabilite"]].copy()
+df_dl = df[["Description", "Niveau", "Prix", "Fiabilite"]].copy()
+df_dl["Prix_log"] = np.log1p(df["Prix"]) # Ajout du log du prix pour la modélisation
+
 df_dl.to_csv("data/fiverr_cleaned_dl.csv", index=False, encoding="utf-8")
-df_dl.to_parquet("data/fiverr_cleaned_dl.parquet", index=False, engine="pyarrow", compression="snappy")
-
-# === Création du fichier pour les tests (avec pondération de la fiabilité) ===
-df_test = df[["Description", "Niveau", "Prix", "Fiabilite"]].copy()
-df_test["Fiabilite"] = df_test["Fiabilite"] * df_test["Niveau"].astype(float)
-df_test["Prix_log"] = np.log1p(df["Prix"])  # Recalcule ici pour éviter dépendance à df_dl
-
-df_test.to_csv("data/fiverr_cleaned_test.csv", index=False, encoding="utf-8")
-df_test.to_parquet("data/fiverr_cleaned_test.parquet", index=False, engine="pyarrow", compression="snappy")
+#df_dl.to_parquet("data/fiverr_cleaned_dl.parquet", index=False, engine="pyarrow", compression="snappy")

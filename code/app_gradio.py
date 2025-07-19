@@ -41,7 +41,7 @@ def faire_une_prediction(description, niveau_label, use_predefined, fiabilite_pe
 
     try:
         if modele == "ML - Local":
-            prix = predict_price(description, fiabilite) * 10
+            prix = predict_price(description, fiabilite)
             tranche = predict_tranche(description, fiabilite)
 
         elif modele == "DL - Local":
@@ -50,7 +50,7 @@ def faire_une_prediction(description, niveau_label, use_predefined, fiabilite_pe
             niveau_ohe = [1 if niveau == n else 0 for n in [1, 2, 3]]
             features = np.hstack([emb, niveau_ohe, [fiabilite]])
             features_scaled = scaler_dl.transform([features])
-            prix = deep_model.predict(features_scaled)[0][0] * 10
+            prix = round(deep_model.predict(features_scaled)[0][0] * 10, 2)
             tranche = "Non évaluée"
 
         elif modele == "DL - FastAPI":
@@ -61,7 +61,7 @@ def faire_une_prediction(description, niveau_label, use_predefined, fiabilite_pe
             )
             response.raise_for_status()
             data = response.json()
-            prix = data.get("prix", -1) * 10
+            prix = data.get("prix", -1)
             tranche = data.get("tranche", "Non évaluée")
 
         elif modele == "ML - FastAPI":
@@ -75,7 +75,7 @@ def faire_une_prediction(description, niveau_label, use_predefined, fiabilite_pe
                 timeout=5
             )
             response_price.raise_for_status()
-            prix = response_price.json().get("prix", -1) * 10
+            prix = response_price.json().get("prix", -1)
 
             # Appel API pour la tranche
             response_tranche = requests.post(
@@ -121,7 +121,7 @@ with gr.Blocks() as iface:
 
     with gr.Row():
         with gr.Column(scale=1):
-            description = gr.Textbox(label="Description du service", value="Je développe un site web", lines=2, placeholder="Je fais des audits qualité...")
+            description = gr.Textbox(label="Description du service", value="Développement de site web", lines=2, placeholder="Auditionner votre système qualité")
             use_predefined = gr.Checkbox(label="Utiliser un niveau de fiabilité prédéfini", value=True, visible=False)
             fiabilite_percent = gr.Slider(label="Fiabilité (%)", minimum=0, maximum=100, value=80, step=5, visible=False)
             fiabilite_choix = gr.Radio(label="Niveau de fiabilité", choices=list(choices.keys()), value="Acceptable", visible=True)

@@ -16,7 +16,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_squared_error
 
 # Chargement des données préparées
-df = pd.read_csv("data/fiverr_cleaned_test.csv")
+df = pd.read_csv("data/fiverr_cleaned_dl.csv")
 
 # Embedding des descriptions
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
