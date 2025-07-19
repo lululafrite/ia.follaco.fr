@@ -103,7 +103,6 @@ Le projet est organisé en **notebooks** (analyse pédagogique) et **scripts Pyt
 | `05_predict.ipynb`                 | Prédiction locale avec des jeux de tests                         |
 | `06_api_fastapi.ipynb`             | Présentation de l’API REST                                       |
 | `07_app_gradio.ipynb`              | Application Gradio interactive                                   |
-| `08_predict_test.ipynb`            | Comparatif croisé ML / DL sur de multiples cas                   |
 
 ### 5.2. Scripts Python — Code modulaire et exécutable
 
@@ -240,10 +239,6 @@ https://www.linkedin.com/in/ludovic-follaco-a74b5394/
 
 ## 13. Conclusion
 
-Ce projet démontre ma capacité à concevoir un pipeline IA complet :
-
-depuis la collecte et la préparation des données,
-
-jusqu’au déploiement d’une interface interactive.
+Ce projet démontre ma capacité à concevoir un pipeline IA complet, depuis la collecte et la préparation des données, jusqu’au déploiement d’une interface interactive.
 
 Il compare les approches classiques (ML) et avancées (DL), avec un focus sur la modularité, l’évolutivité, et l’intégration dans un cas d’usage réel (freelance pricing).
