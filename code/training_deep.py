@@ -16,16 +16,19 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import mean_squared_error
 
 # Chargement des données préparées
-df = pd.read_csv("data/fiverr_cleaned_dl.csv")
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+FILE_DATA = os.path.join(BASE_DIR, "data", "fiverr_cleaned_dl.csv")
+
+# Chargement des données transformées
+df = pd.read_csv(FILE_DATA)
 
 # Embedding des descriptions
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-descriptions = df["Description"].astype(str).tolist()
-embeddings = embedding_model.encode(descriptions)
+embeddings = embedding_model.encode(df["Description"].astype(str).tolist(), show_progress_bar=True)
 embed_df = pd.DataFrame(embeddings, columns=[f"emb_{i}" for i in range(embeddings.shape[1])])
 
 # Encodage one-hot du niveau du vendeur
-niveau_encoded = pd.get_dummies(df["Niveau"], prefix="Niveau")
+niveau_encoded = pd.get_dummies(df["Niveau"], prefix="Niveau") # tableau d'affectation binaire
 
 # Ajout de la variable Fiabilite
 autres_features = df[["Fiabilite"]].reset_index(drop=True)
@@ -35,7 +38,9 @@ X = pd.concat([embed_df, niveau_encoded, autres_features], axis=1)
 y_log = df["Prix_log"]
 
 # Découpage en train/test
-X_train, X_test, y_train, y_test = train_test_split(X, y_log, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y_log, test_size=0.2, random_state=42
+)
 
 # Standardisation
 scaler = StandardScaler()

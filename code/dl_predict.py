@@ -42,5 +42,5 @@ def predict_price_dl(description, fiabilite, niveau=1):
     niveau_ohe = [1 if niveau == n else 0 for n in niveau_mapping]
     features = np.hstack([emb, niveau_ohe, [fiabilite]])
     features_scaled = scaler_dl.transform([features])
-    prix = round(deep_model.predict(features_scaled, verbose=0)[0][0] * 10, 2)
+    prix = round(deep_model.predict(features_scaled, verbose=0)[0][0], 2)
     return prix

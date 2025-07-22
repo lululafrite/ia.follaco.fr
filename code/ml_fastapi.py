@@ -35,7 +35,7 @@ class InputData(BaseModel):
 # === Prétraitement commun ===
 def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
     emb = embedding_model.encode([description])
-    emb_dict = {f"emb_{i}": emb[0][i] for i in range(384)}
+    emb_dict = {f"emb_{i}": emb[0][i] for i in range(384)} # encodage des vecteurs denses sur 384 dimensions
 
     # Ne pas pondérer ici
     row = {**emb_dict, "Fiabilite": fiabilite}
@@ -49,10 +49,10 @@ def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
 @app.post("/predict_price")
 def predict_price_api(data: InputData):
     # On applique la pondération ici, comme dans ml_predict.py
-    fiabilite_pondérée = data.fiabilite * 0.8
+    fiabilite_pondérée = data.fiabilite # * 0.8
     X = preprocess_input(data.description, fiabilite_pondérée)
     y_pred = reg_model.predict(X)[0]
-    return {"prix": round(float(y_pred) * 10, 2)}
+    return {"prix": round(float(y_pred), 2)}
 
 # === Route : prédiction de tranche ===
 @app.post("/predict_tranche")

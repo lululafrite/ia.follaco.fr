@@ -30,10 +30,10 @@ niveau_mapping = [1, 2, 3]
 def load_models():
     global deep_model, scaler
     if deep_model is None:
-        print("🔄 Chargement du modèle...")
+        print("Chargement du modèle...")
         deep_model = load_model(MODEL_PATH)
         scaler = joblib.load(SCALER_PATH)
-        print("✅ Modèle et scaler chargés.")
+        print("Modèle et scaler chargés.")
 
 # === Schéma de données attendues ===
 class InputData(BaseModel):
@@ -57,7 +57,7 @@ async def predict_price(input_data: InputData):
         X = preprocess_input(input_data)
         y_pred = await run_in_threadpool(lambda: deep_model.predict(X)[0][0])
         return {
-            "prix": round(float(y_pred) *10, 2),
+            "prix": float(y_pred),
             #"tranche": None  # tu peux remplacer par une vraie tranche si tu veux
         }
     except Exception as e:

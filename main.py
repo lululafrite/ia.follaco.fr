@@ -38,7 +38,7 @@ def prompt_retrain():
             subprocess.run([sys.executable, "code/train_all.py"])
         else:
             print("\nLancement interrompu car les modèles requis sont absents.")
-            sys.exit(10)
+            sys.exit(1)
 
 def launch_apis():
     """Lance les deux APIs FastAPI (ML + DL) en parallèle"""
@@ -51,7 +51,7 @@ def launch_apis():
     subprocess.Popen([sys.executable, "-m", "uvicorn", "code.dl_fastapi:app", "--port", "8000", "--reload"])
 
     # Attente courte pour laisser les serveurs démarrer
-    time.sleep(10)
+    time.sleep(5)
 
 def launch_gradio():
     """Lance l’application Gradio et ouvre le navigateur"""

@@ -45,10 +45,10 @@ def preprocess_input(description: str, fiabilite: float) -> pd.DataFrame:
 # Prédiction de prix (régression)
 def predict_price(description: str, fiabilite: float) -> float:
     # On applique une pondération arbitraire sur la fiabilité pour améliorer la cohérence
-    fiabilite_pondérée = fiabilite * 0.8
+    fiabilite_pondérée = fiabilite # * 0.8
     X = preprocess_input(description, fiabilite_pondérée)
     # Multiplication par 2.5 pour retrouver l’échelle initiale des prix
-    return round(reg_model.predict(X)[0] * 10, 2)
+    return round(reg_model.predict(X)[0], 2)
 
 # Prédiction de tranche de prix (classification)
 def predict_tranche(description: str, fiabilite: float) -> str:

@@ -14,7 +14,7 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 
 # === Téléchargement des stopwords français (pour nettoyage de texte) ===
 nltk.download('stopwords')
-french_stopwords = stopwords.words('french')
+english_stopwords = stopwords.words('english')
 
 # === Authentification et téléchargement du fichier csv Kaggle ===
 api = KaggleApi()
@@ -132,7 +132,7 @@ def clean_description(text):
     ]
     for pattern in phrases_to_remove:
         text = re.sub(pattern, "", text, flags=re.IGNORECASE)
-    words = [word for word in text.split() if word not in french_stopwords]
+    words = [word for word in text.split() if word not in english_stopwords]
     return " ".join(words).strip()
 
 df["Description"] = df["Description"].astype(str).apply(clean_description)

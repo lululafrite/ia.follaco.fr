@@ -61,7 +61,7 @@ def faire_une_prediction(description, niveau_label, use_predefined, fiabilite_pe
             )
             response.raise_for_status()
             data = response.json()
-            prix = data.get("prix", -1)
+            prix = round(data.get("prix", -1) * 10, 2)
             tranche = data.get("tranche", "Non évaluée")
 
         elif modele == "ML - FastAPI":
@@ -121,7 +121,9 @@ with gr.Blocks() as iface:
 
     with gr.Row():
         with gr.Column(scale=1):
-            description = gr.Textbox(label="Description du service", value="Développement de site web", lines=2, placeholder="Auditionner votre système qualité")
+            description = gr.Textbox(label="Description du service",
+                                      value="Développer un site web de e-commerce avec une interface utilisateur intuitive, un système de paiement sécurisé et une gestion efficace des stocks. Le site doit être optimisé pour le référencement et compatible avec les appareils mobiles",
+                                      lines=2, placeholder="Auditer votre système qualité")
             use_predefined = gr.Checkbox(label="Utiliser un niveau de fiabilité prédéfini", value=True, visible=False)
             fiabilite_percent = gr.Slider(label="Fiabilité (%)", minimum=0, maximum=100, value=80, step=5, visible=False)
             fiabilite_choix = gr.Radio(label="Niveau de fiabilité", choices=list(choices.keys()), value="Acceptable", visible=True)
